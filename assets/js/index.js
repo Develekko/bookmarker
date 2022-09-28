@@ -1,7 +1,6 @@
 var bookMarkName = document.getElementById("bookMarkName");
 var bookMarkUrl = document.getElementById("bookMarkUrl");
 var addBtn = document.getElementById("addBtn");
-var undo = document.getElementById("undo");
 var currentIndex = 0;
 var bookMarks = [];
 if (localStorage.getItem("BookMarks") != null) {
