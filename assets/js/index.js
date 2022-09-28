@@ -101,7 +101,7 @@ function clearInputs() {
 }
 
 function deleteBookMark(index) {
-  var text = "Are u sure u want delete BookMark\nPress OK or Cancel.";
+  var text = `Delete ${bookMarks[index].bmName} BookMark\nPress OK or Cancel.`;
   if (confirm(text) == true) {
     bookMarks.splice(index, 1);
     localStorage.setItem("BookMarks", JSON.stringify(bookMarks));
