@@ -1,6 +1,7 @@
 var bookMarkName = document.getElementById("bookMarkName");
 var bookMarkUrl = document.getElementById("bookMarkUrl");
 var addBtn = document.getElementById("addBtn");
+var undo = document.getElementById("undo");
 var currentIndex = 0;
 var bookMarks = [];
 if (localStorage.getItem("BookMarks") != null) {
@@ -101,20 +102,31 @@ function clearInputs() {
 }
 
 function deleteBookMark(index) {
-  bookMarks.splice(index, 1);
-  localStorage.setItem("BookMarks", JSON.stringify(bookMarks));
-  displayBookMark();
-}
+  var text = "Are u sure u want delete BookMark\nPress OK or Cancel.";
+  if (confirm(text) == true) {
+    bookMarks.splice(index, 1);
+    localStorage.setItem("BookMarks", JSON.stringify(bookMarks));
+    displayBookMark();
+  } 
 
+}
 function searchBookMark(term) {
   var cartona = "";
   for (var i = 0; i < bookMarks.length; i++) {
     if (bookMarks[i].bmName.toLowerCase().includes(term.toLowerCase())) {
+      if(bookMarks[i].bmUrl.length > 30)
+      {
+        urlTrunc = bookMarks[i].bmUrl.substring(0,30)+"..."
+      }
+      else
+      [
+        urlTrunc = bookMarks[i].bmUrl
+      ]
       cartona += `
       <tr>
       <td>${i + 1}</td>
       <td>${bookMarks[i].bmName}</td>
-      <td><a target="_blank" href="https://${bookMarks[i].bmUrl}"><img class="me-2" src="http://s2.googleusercontent.com/s2/favicons?domain=${bookMarks[i].bmUrl}"></a><a class="nav-link d-inline" target="_blank" href="https://${bookMarks[i].bmUrl}">${bookMarks[i].bmUrl}</td>
+      <td><a target="_blank" href="https://${bookMarks[i].bmUrl}"><img class="me-2" src="http://s2.googleusercontent.com/s2/favicons?domain=${bookMarks[i].bmUrl}"></a><a class="nav-link d-inline" target="_blank" href="https://${bookMarks[i].bmUrl}">${urlTrunc}</td>
       <td><button class="btn btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></button></td>
       <td><button onclick="deleteBookMark(${i})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
     </tr>
