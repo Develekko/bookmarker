@@ -70,18 +70,29 @@ function addBookMark() {
 
 function displayBookMark() {
   var cartona = "";
+
   for (var i = 0; i < bookMarks.length; i++) {
+    if(bookMarks[i].bmUrl.length > 30)
+    {
+      urlTrunc = bookMarks[i].bmUrl.substring(0,30)+"..."
+    }
+    else
+    [
+      urlTrunc = bookMarks[i].bmUrl
+    ]
     cartona += `
     <tr>
       <td>${i + 1}</td>
       <td><a class="nav-link d-inline" target="_blank" href="https://${bookMarks[i].bmUrl}">${bookMarks[i].bmName}</td>
-      <td><a target="_blank" href="https://${bookMarks[i].bmUrl}"><img class="me-2" src="http://s2.googleusercontent.com/s2/favicons?domain=${bookMarks[i].bmUrl}"></a><a class="nav-link d-inline" target="_blank" href="https://${bookMarks[i].bmUrl}">${bookMarks[i].bmUrl}</td>
+      <td><a target="_blank" href="https://${bookMarks[i].bmUrl}"><img class="me-2" src="http://s2.googleusercontent.com/s2/favicons?domain=${bookMarks[i].bmUrl}"></a><a class="nav-link d-inline" target="_blank" href="https://${bookMarks[i].bmUrl}">${urlTrunc}</td>
       <td><button onclick="getData(${i})" class="btn btn-warning text-white"><i class="fa-solid fa-pen-to-square"></i></button></td>
       <td><button onclick="deleteBookMark(${i})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></td>
     </tr>
     `
   }
+
   document.getElementById("bookMarkTable").innerHTML = cartona;
+
 }
 
 function clearInputs() {
@@ -217,8 +228,9 @@ function updateBookMark() {
 }
 
 function checkEmpty() {
-  var regex = /^./
-  if (regex.test(bookMarkName.value) == true && regex.test(bookMarkUrl.value) == true) {
+  var regex = /^.{1,20}$/;
+  var regexUrl = /.+/;
+  if (regex.test(bookMarkName.value) == true && regexUrl.test(bookMarkUrl.value) == true) {
     return true;
   }
   else {
@@ -238,3 +250,4 @@ function checkName() {
     }
   }
 }
+
